@@ -1,5 +1,5 @@
 import { Gym } from "@prisma/client";
-import { GymRepository } from "@/repositories/prisma/gyms-repository";
+import { GymRepository } from "@/repositories/gyms-repository";
 
 interface FetchNearbyGymsUseCaseRequest {
   userLatitude: number;

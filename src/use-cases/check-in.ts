@@ -1,6 +1,6 @@
 import { CheckIn } from "@prisma/client";
-import { CheckInsRepository } from "@/repositories/prisma/check-ins-repository";
-import { GymRepository } from "@/repositories/prisma/gyms-repository";
+import { CheckInsRepository } from "@/repositories/check-ins-repository";
+import { GymRepository } from "@/repositories/gyms-repository";
 import { ResourceNotFoundError } from "./erros/resource-not-found-error";
 import { getDistanceBetweenCoordinates } from "@/utils/get-distance-between-coodinates";
 import { MaxDistanceError } from "./erros/max-distance-error";
