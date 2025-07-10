@@ -47,7 +47,6 @@ export class InMemoryGymRepository implements GymRepository {
           longitude: item.longitude.toNumber(),
         },
       );
-      console.log(distance);
       return distance < 10;
     });
   }
