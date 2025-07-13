@@ -25,28 +25,28 @@ model User {
 }
 
 model CheckIn {
-  id           String    @id @default(ulid())
+  id           String    @id @default(uuid())
   created_at   DateTime  @default(now())
   validated_at DateTime?
 
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
-  gym   Gym    @relation(fields: [gym_Id], references: [id])
+  gym    Gym    @relation(fields: [gym_Id], references: [id])
   gym_Id String
 
   @@map("chec_ins")
 }
 
 model Gym {
-  id          String    @id @default(ulid())
+  id          String  @id @default(uuid())
   title       String
   description String?
   phone       String?
   latitude    Decimal
   longitude   Decimal
 
-  checkIns     CheckIn[]
+  checkIns CheckIn[]
 
   @@map("gyms")
 }
