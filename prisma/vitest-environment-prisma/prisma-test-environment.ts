@@ -5,7 +5,8 @@
 import "dotenv/config";
 import { randomUUID } from "node:crypto";
 import { execSync } from "node:child_process";
-import { resolve } from "node:path";
+import { resolve, join } from "node:path";
+import { existsSync } from "node:fs";
 import type { Environment } from "vitest/environments";
 import { PrismaClient } from "@prisma/client";
 
@@ -13,7 +14,7 @@ const prisma = new PrismaClient();
 
 function generateDatabaseURL(schema: string) {
   if (!process.env.DATABASE_URL) {
-    throw new Error("Please provide a DATABASE_URL environment variable.");
+    throw new Error("Por favor, defina a variável DATABASE_URL.");
   }
 
   const url = new URL(process.env.DATABASE_URL);
@@ -30,9 +31,13 @@ export default <Environment>{
     const databaseURL = generateDatabaseURL(schema);
     process.env.DATABASE_URL = databaseURL;
 
-    const schemaPath = resolve(__dirname, "../../prisma/schema.prisma");
+    const schemaPath = resolve(join(__dirname, "../../prisma/schema.prisma"));
 
-    execSync(`npx prisma migrate deploy --schema=${schemaPath}`);
+    if (!existsSync(schemaPath)) {
+      throw new Error(`Arquivo schema.prisma não encontrado em: ${schemaPath}`);
+    }
+
+    execSync(`npx prisma migrate deploy --schema="${schemaPath}"`);
 
     return {
       async teardown() {
