@@ -19,7 +19,6 @@ function generateDatabaseURL(schema: string) {
 
   const url = new URL(process.env.DATABASE_URL);
   url.searchParams.set("schema", schema);
-
   return url.toString();
 }
 
@@ -34,12 +33,13 @@ export default <Environment>{
     const schemaPath = resolve(join(__dirname, "../../prisma/schema.prisma"));
 
     if (!existsSync(schemaPath)) {
-      throw new Error(`Arquivo schema.prisma não encontrado em: ${schemaPath}`);
+      throw new Error(`Arquivo schema.prisma não encontrado: ${schemaPath}`);
     }
 
     process.env.PRISMA_SCHEMA_PATH = schemaPath;
 
-    execSync("npx prisma migrate deploy");
+    execSync("npx prisma generate", { stdio: "inherit" });
+    execSync("npx prisma migrate deploy", { stdio: "inherit" });
 
     return {
       async teardown() {
