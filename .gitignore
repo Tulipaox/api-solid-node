@@ -3,3 +3,4 @@ build
 .env
 coverage
 /generated/prisma
+.env.test
