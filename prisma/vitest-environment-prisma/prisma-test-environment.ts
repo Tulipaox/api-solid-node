@@ -37,7 +37,9 @@ export default <Environment>{
       throw new Error(`Arquivo schema.prisma não encontrado em: ${schemaPath}`);
     }
 
-    execSync(`npx prisma migrate deploy --schema="${schemaPath}"`);
+    process.env.PRISMA_SCHEMA_PATH = schemaPath;
+
+    execSync("npx prisma migrate deploy");
 
     return {
       async teardown() {
