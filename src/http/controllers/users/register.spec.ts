@@ -1,3 +1,5 @@
+// @vitest-environment ./vitest-environment-prisma
+
 import request from "supertest";
 import { app } from "@/app";
 import { prisma } from "@/lib/prisma";
