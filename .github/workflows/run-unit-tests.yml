@@ -15,8 +15,6 @@ jobs:
           node-version: '20.19.0'
           cache: 'npm'
 
-      - run: npm ci
-
-      - run: npm run build      
+      - run: npm ci    
 
       - run: npm run test
