@@ -12,8 +12,19 @@ export default defineConfig({
         extends: true,
         test: {
           environment: "prisma",
+          exclude: ["prisma/**"],
         },
       },
     ],
+  },
+
+  optimizeDeps: {
+    exclude: ["prisma"],
+  },
+
+  build: {
+    rollupOptions: {
+      external: ["prisma"],
+    },
   },
 });
